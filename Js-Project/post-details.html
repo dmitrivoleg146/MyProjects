@@ -6,23 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        body{
+            margin: 0 auto;
+        }
         .posts{
             background: rebeccapurple;
+        }
+        .comments{
+            background: navajowhite;
         }
     </style>
 </head>
 <body>
     <div class="post"></div>
+    <ol class="comments"></ol>
 
     <script>
         let url=new URL(location.href);
         let post = JSON.parse(url.searchParams.get('data'));
         console.log(post);
         let postContainer=document.getElementsByClassName('post')[0];
-        postContainer.innerText=JSON.stringify(post);
+        postContainer.innerText=`
+        ${JSON.stringify(post.userId)}
+        ${JSON.stringify(post.id)}
+        ${JSON.stringify(post.title)}
+        ${JSON.stringify(post.body)}
+        `;
 
         let commentsContainer=document.getElementsByClassName('comments')[0];
-        fetch()
+        fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
+        .then(value=>value.json())
+        .then(value=>{
+            for(const commentItem of value){
+                let commentContainer=document.createElement('li');
+                commentContainer.innerText=commentItem.email;
+                commentsContainer.appendChild(commentContainer);
+            }
+        })
+       
     </script>
 </body>
 </html>

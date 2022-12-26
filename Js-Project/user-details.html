@@ -12,8 +12,25 @@
         .postsContainer{
             background: yellow;
         }
-        
-        
+        .postsDetailsButton{
+            width:90%;
+            margin: 0 auto;
+            display: block;
+        }
+        .posts{
+            display: flex;
+            flex-wrap:wrap;
+            column-gap: 150px;
+            margin-top: 50px;
+            row-gap: 50px;
+            align-items: center;
+            justify-content: center;
+        }
+        .post{
+            background: silver;
+            width:100px;
+            height: 200px;
+        }
        
     </style>
 </head>
@@ -21,6 +38,7 @@
     <div class="user-details">
 
     </div>
+    <button class="postsDetailsButton">Button</button>
     <div class="posts">
 
     </div>
@@ -31,29 +49,46 @@
 
         let userDetailsContainer=document.getElementsByClassName('user-details')[0];
         let postsContainer=document.getElementsByClassName('posts')[0];
-       userDetailsContainer.innerText=`${JSON.stringify(user.id)} 
+
+        let postsDetailsButton = document.getElementsByClassName('postsDetailsButton')[0];
+       userDetailsContainer.innerText=`
+        ${JSON.stringify(user.id)} 
         ${JSON.stringify(user.name)}
-        ${user.username}
-        ${user.email}
-        ${user.address.street}
-        ${user.address.suite}`;
+        ${JSON.stringify(user.username)}
+        ${JSON.stringify(user.email)}
+        ${JSON.stringify(user.address.street)}
+        ${JSON.stringify(user.address.suite)}
+        ${JSON.stringify(user.address.city)}
+        ${JSON.stringify(user.address.zipcode)}
+        ${JSON.stringify(user.address.geo.lat)}
+        ${JSON.stringify(user.address.geo.lng)}
+        ${JSON.stringify(user.phone)}
+        ${JSON.stringify(user.website)}
+        ${JSON.stringify(user.company.name)}
+        ${JSON.stringify(user.company.catchPhrase)}
+        ${JSON.stringify(user.company.bs)}`;
         
-        let postsButton=document.createElement('button');
-        postsButton.innerText='All Posts';
-        postsButton.onclick=function(){
+        postsDetailsButton.onclick=function(){
+            this.disabled=true;
             fetch(`https://jsonplaceholder.typicode.com/users/${user.id}/posts`)
             .then(value=>value.json())
             .then(value=>{
-                for(const postItem in value){
+                for(const postItem of value){
                     let postContainer=document.createElement('div');
                     postContainer.classList.add('post');
                     postContainer.innerText= postItem.title;
+                    let postDetailsButton = document.createElement('button');
+                    postDetailsButton.innerText='Details';
+                    postDetailsButton.onclick=function(){
+                        location.href=`./post-details.html?data=${JSON.stringify(postItem)}`;
+                    }
+                    postContainer.appendChild(postDetailsButton);
                     postsContainer.appendChild(postContainer);
                 }
             })
         }
 
-        userDetailsContainer.appendChild(postsButton);
+        userDetailsContainer.appendChild(postsDetailsButton);
     </script>
 </body>
 </html>
