@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .posts{
+            background: rebeccapurple;
+        }
+    </style>
+</head>
+<body>
+    <div class="post"></div>
+
+    <script>
+        let url=new URL(location.href);
+        let post = JSON.parse(url.searchParams.get('data'));
+        console.log(post);
+        let postContainer=document.getElementsByClassName('post')[0];
+        postContainer.innerText=JSON.stringify(post);
+
+        let commentsContainer=document.getElementsByClassName('comments')[0];
+        fetch()
+    </script>
+</body>
+</html>
