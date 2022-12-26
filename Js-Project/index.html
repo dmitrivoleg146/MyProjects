@@ -36,9 +36,9 @@
               userContainer.classList.add('user');
               let content=document.createElement("a");
               content.innerText = `${usersElem.id} - ${usersElem.name}`;
-              content.href= './user-details.html';
+              content.href= `./user-details.html?data=${JSON.stringify(usersElem)}`;
               userContainer.appendChild(content);
-              usersContainer.appendChild(userContainer)
+              usersContainer.appendChild(userContainer);
             }
         })
     </script>
