@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="users"></div>
+    <script>
+        let usersContainer= document.getElementsByClassName('users')[0];
+        fetch(`https://jsonplaceholder.typicode.com/users`)
+        .then(value=>value.json())
+        .then(value => {
+            for( let usersElem of value){
+              let userContainer= document.createElement('div');
+              userContainer.classList.add('user');
+              userContainer.innerText = `${usersElem.id} - ${usersElem.name}`
+              usersContainer.appendChild(userContainer)
+            }
+        })
+    </script>
+</body>
+</html>
