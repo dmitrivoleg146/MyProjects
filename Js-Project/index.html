@@ -6,13 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        
+        body{
+            margin: 0 auto;
+        }
+        a{
+            text-decoration: none;
+            color:powderblue;
+        }
+        a:hover{
+            color:black;
+        }
+        .user:hover{
+            background-color: #3e8e41;
+        }
         .users{
             display: flex;
             flex-wrap: wrap;
         }
         .user{
-            background: silver;
+            transition: 0.3s;
+            border-radius: 8px;
+            background: brown;
             width: 200px;
             height:100px;
             margin:10px;

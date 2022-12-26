@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details</title>
     <style>
+        body{
+            margin:0;
+        }
         .user-details{
-            background: silver;;
+            background: orange;;
+            text-align: center;
         }
         .postsContainer{
             background: yellow;
@@ -16,6 +20,18 @@
             width:90%;
             margin: 0 auto;
             display: block;
+            margin-top: 30px;
+            transition: all 0.7s;
+            cursor: pointer;
+            border: 3px solid black;
+            border-radius: 8px;
+            background: maroon;
+            color: white;
+        }
+        .postsDetailsButton:hover{
+            background-color: #04AA6D;
+            border: 3px solid white;
+            color:black;
         }
         .posts{
             display: flex;
@@ -30,7 +46,17 @@
             background: silver;
             width:100px;
             height: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: burlywood;
         }
+        button{
+            cursor: pointer;
+        }
+        
        
     </style>
 </head>
@@ -67,6 +93,8 @@
         ${JSON.stringify(user.company.name)}
         ${JSON.stringify(user.company.catchPhrase)}
         ${JSON.stringify(user.company.bs)}`;
+
+        userDetailsContainer.style.color="black";
         
         postsDetailsButton.onclick=function(){
             this.disabled=true;
@@ -78,6 +106,7 @@
                     postContainer.classList.add('post');
                     postContainer.innerText= postItem.title;
                     let postDetailsButton = document.createElement('button');
+                    postDetailsButton.cr
                     postDetailsButton.innerText='Details';
                     postDetailsButton.onclick=function(){
                         location.href=`./post-details.html?data=${JSON.stringify(postItem)}`;
