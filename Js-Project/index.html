@@ -5,6 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        .users{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .user{
+            background: silver;
+            width: 200px;
+            height:100px;
+            margin:10px;
+            margin-left: calc(25% - 100px);
+            margin-right: calc(25% - 100px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
     <div class="users"></div>
@@ -16,7 +34,10 @@
             for( let usersElem of value){
               let userContainer= document.createElement('div');
               userContainer.classList.add('user');
-              userContainer.innerText = `${usersElem.id} - ${usersElem.name}`
+              let content=document.createElement("a");
+              content.innerText = `${usersElem.id} - ${usersElem.name}`;
+              content.href= './user-details.html';
+              userContainer.appendChild(content);
               usersContainer.appendChild(userContainer)
             }
         })
