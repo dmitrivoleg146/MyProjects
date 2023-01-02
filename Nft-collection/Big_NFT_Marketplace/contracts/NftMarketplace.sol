@@ -92,7 +92,7 @@ contract NftMarketplace is ERC721URIStorage{
 
     //Function for resale token
 
-    function reSellToken(uint256 tokenId, uint256 price) public payable{
+    function reSaleToken(uint256 tokenId, uint256 price) public payable{
         require(idMarketItem[tokenId].owner==msg.sender, "Only item owner can perform");
 
         require(msg.value==listingPrice, "Price must be equal to listing price");
@@ -124,7 +124,77 @@ contract NftMarketplace is ERC721URIStorage{
       payable(idMarketItem[tokenId].seller).transfer(msg.value);
     }
 
-    //47
+    //Getting Unsold Nft Data
+
+    function fetchMarketItem() public view returns (MarketItem[] memory){
+        uint256 itemCount = _tokenIds.current();
+        uint256 unsoldItemCount = _tokenIds.current() - _itemsSold.current();
+        uint256 currectIndex =0;
+
+        MarketItem[] memory  items = new MarketItem[](unsoldItemCount);
+        for(uint256 i = 0;i<itemCount;i++){
+            if(idMarketItem[i+1].owner == address(this)){
+               uint256 currectId = i+1;
+
+               MarketItem storage currentItem = idMarketItem[currectId];
+               items[currectIndex] = currentItem;
+               currectIndex+=1;
+
+            }
+        }
+        return items;
+    }
+    
+    //Purchase Item
+
+    function fetchMyNFT() public view returns (MarketItem[] memory){
+        uint256 totalCount = _tokenIds.current();
+        uint256 itemCount =0;
+        uint256 currentIndex = 0;
+
+        for(uint256 i =0;i<totalCount;i++){
+            if(idMarketItem[i+1].owner == msg.sender){
+                itemCount +=1;
+            }
+        }
+        MarketItem[] memory items = new MarketItem[] (itemCount);
+        for(uint256 i = 0; i<totalCount;i++){
+            if(idMarketItem[i+1].owner == msg.sender){
+            uint256 currentId=i+1;
+            MarketItem storage currentItem = idMarketItem[currentId];
+            items[currentIndex]=currentItem;
+            currentIndex+=1;
+            }
+        }
+        return items;
+    }
+      
+      // Single User Items
+    
+    function fetchItemsListed() public view returns (MarketItem[] memory){
+        uint256 totalCount = _tokenIds.current();
+        uint256 itemsCount = 0;
+        uint256 currentIndex = 0;
+
+        for(uint256 i=0; i<totalCount;i++){
+            if(idMarketItem[i+1].seller == msg.sender){
+                itemsCount +=1;
+            }
+        }
+        
+        MarketItem[] memory items = new MarketItem[] (itemsCount);
+        for (uint256 i=0;i<totalCount;i++){
+            if(idMarketItem[i+1].seller == msg.sender){
+                uint256 currentId= i+1;
+
+                MarketItem storage currentItem = idMarketItem[currentId];
+                items[currentIndex] = currentItem;
+                currentIndex +=1;
+
+            }
+        }
+        return items;
+    }
 
 }
 
