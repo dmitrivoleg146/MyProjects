@@ -1,5 +1,6 @@
 import Coin from './Coin.json';
 
-export const coinAddress = "";
+export const coinAddress = ""; //generated address 
 
-export const coinAddressABI= Coin.abi;
+export const coinABI= Coin.abi;
+
