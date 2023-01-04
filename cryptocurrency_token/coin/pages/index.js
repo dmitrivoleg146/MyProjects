@@ -3,11 +3,15 @@ import Web3Modal from "web3modal";
 import {ethers} from "ethers";
 
 //Internal Import
-import{};
-const Home  = () => {
+import{coinAddress} from '../context/constants';
+
+export const ERC20ICOCONTEXT = React.createContext();
+
+export  const ERC20Provider = ({children})=>{
+  const coin = "Hey subscribe me";
   return (
-    <div>Home </div>
+    <ERC20ICOCONTEXT.Provider value={{coin}}>
+      {children}
+    </ERC20ICOCONTEXT.Provider>
   )
 }
-
-export default Home 
